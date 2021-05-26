@@ -11,49 +11,47 @@ import '../AdminTools/_ManageUsersStyles.less';
 import Icon from '@ant-design/icons';
 import OrangeLine from '../../../styles/orange-line.svg';
 import axiosWithAuth from '../../../utils/axiosWithAuth';
-const initialFormValues = {
-  case_date: '',
-  application_type: '',
-  protected_grounds: '',
-  case_outcome: '',
-  country_of_origin: '',
-  case_origin_city: '',
-  case_origin_state: '',
-  gender: '',
-  type_of_violence: '',
-  indigenous_group: '',
-  applicant_language: '',
-  credible: false,
-};
 
 const EditCaseDetails = props => {
-  const [formValues, setFormValues] = useState(initialFormValues);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { caseId, setIsEditModalVisible, isEditModalVisible } = props;
-
-  useEffect(() => {
-    if (localStorage.role === 'admin') {
-      setIsAdmin(true);
-    }
-    async function fetchCase() {
-      axiosWithAuth()
-        .get(`/case/${caseId}`)
-        .then(res => {
-          console.log(res.data);
-          setFormValues({
-            ...res.data,
-            case_date: res.data.case_date.slice(0, 10),
-          });
-          setLoading(false);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-    setLoading(true);
-    fetchCase();
-  }, [caseId]);
+  const { caseData, caseId, setIsEditModalVisible, isEditModalVisible } = props;
+  const initialFormValues = {
+    case_date: caseData.case_date,
+    application_type: caseData.application_type,
+    protected_grounds: caseData.protected_grounds,
+    case_outcome: caseData.case_outcome,
+    country_of_origin: caseData.country_of_origin,
+    case_origin_city: caseData.case_origin_city,
+    case_origin_state: caseData.case_origin_state,
+    gender: caseData.gender,
+    type_of_violence: caseData.type_of_violence,
+    indigenous_group: caseData.indigenous_group,
+    applicant_language: caseData.applicant_language,
+    credible: caseData.credible,
+  };
+  const [formValues, setFormValues] = useState(initialFormValues);
+  // useEffect(() => {
+  //   if (localStorage.role === 'admin') {
+  //     setIsAdmin(true);
+  //   }
+  //   async function fetchCase() {
+  //     axiosWithAuth()
+  //       .get(`/case/${caseId}`)
+  //       .then(res => {
+  //         console.log(res.data);
+  //         setFormValues({
+  //           ...res.data,
+  //           case_date: res.data.case_date.slice(0, 10),
+  //         });
+  //         setLoading(false);
+  //       })
+  //       .catch(err => {
+  //         console.log(err);
+  //       });
+  //   }
+  //   setLoading(true);
+  //   fetchCase();
+  // }, [caseId]);
 
   const handleEditOk = () => {
     setIsEditModalVisible(false);

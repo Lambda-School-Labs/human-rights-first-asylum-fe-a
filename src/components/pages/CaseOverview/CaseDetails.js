@@ -69,6 +69,7 @@ const CaseDetails = props => {
         <p>{`Applicant Language: ${caseData.applicant_language}`}</p>
       </div>
       <EditCaseDetails
+        caseData={caseData}
         caseId={caseData.case_id}
         setIsEditModalVisible={setIsEditModalVisible}
         isEditModalVisible={isEditModalVisible}
