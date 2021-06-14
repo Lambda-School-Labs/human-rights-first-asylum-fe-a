@@ -8,6 +8,8 @@ import {
   Collapse,
   Descriptions,
   Radio,
+  Table,
+  Space,
 } from 'antd';
 import PendingUsers from './PendingUsers';
 
@@ -29,6 +31,7 @@ const ManageUsersPage = props => {
   const [profiles, setProfiles] = useState([]);
   const [formValues, setFormValues] = useState(initialFormValues);
 
+  
   useEffect(() => {
     axiosWithAuth()
       .get(`/profiles`)
@@ -133,6 +136,53 @@ const ManageUsersPage = props => {
     setIsEditModalVisible(false);
   };
 
+  const columns = [
+    {
+    title: 'First Name',
+    dataIndex: 'first_name',
+    key: 'first_name',
+    },
+    {
+    title: 'Email',
+    dataIndex: 'email',
+    key: 'email',
+    },
+    {
+      title: 'Role',
+      dataIndex: 'role',
+      key: 'role',
+      },
+      {
+        title: 'Action',
+        key: 'action',
+        render: (text, record) => (
+          <AntDButton
+                    className="btn-style"
+                    onClick={() => showEditModal(profiles.user_id)}
+                  >
+                    Edit
+                  </AntDButton>
+        )
+        },
+        {
+          title: 'Action',
+          key: 'action',
+          render: (text, record) => (
+            <AntDButton
+                    className="btn-style"
+                    onClick={() => {
+                      // deleteUser(item);
+                    }}
+                  >
+                    Delete
+                  </AntDButton>
+          )
+          }
+
+  ];
+
+  
+ 
   return (
     <div className="users-container">
       <div className="users">
@@ -140,6 +190,10 @@ const ManageUsersPage = props => {
         <p className="divider">
           <Icon component={() => <img src={OrangeLine} alt="divider icon" />} />
         </p>
+
+        <Table columns={columns} dataSource={profiles}>
+
+        </Table>
         <Collapse accordion>
           {profiles.map(item => {
             return (
