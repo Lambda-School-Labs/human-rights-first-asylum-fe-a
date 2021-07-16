@@ -5,6 +5,7 @@ import axios from 'axios';
 import { UserContext } from '../../../context/UserContext';
 import Icon from '@ant-design/icons';
 import OrangeLine from '../../../styles/orange-line.svg';
+import SearchFeaturesForm from './SearchFeaturesForm.js';
 
 const DataHub = props => {
   const { caseData } = props;
@@ -208,7 +209,7 @@ const DataHub = props => {
       <div className="mainChartContainer">
         <TestDataChart />
       </div>
-
+      <SearchFeaturesForm />
       <div className="subChartsContainer">
         <CaseDataChart />
         <h2>Ratio of Cases Resulting In Granted Asylum: {grantedRatio}%</h2>
